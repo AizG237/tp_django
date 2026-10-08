@@ -14,10 +14,15 @@ from .models import Reservation, Salle
 # TODO : votre code ici
 
 class SalleViewSet(viewsets.ModelViewSet):
+    queryset = Salle.objects.all()
     serializer_class = SalleSerializer
 
 class ReservationViewSet(viewsets.ModelViewSet):
+    queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(utilisateur=self.request.user)
 
   
         
