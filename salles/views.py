@@ -16,6 +16,10 @@ from .permissions import IsOwnerOrReadOnly
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
+
+from django.utils import timezone
+from django.utils.dateparse import parse_datetime
+from rest_framework import status
 # TODO : votre code ici
 
 
@@ -27,7 +31,16 @@ class SalleViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=["get"])
     def get_occupation(self,request):
         resp= None
-
+        try:
+            debut = parse_datetime(request.query_params.get("debut", ""))
+            fin = parse_datetime(request.query_params.get("fin", ""))
+        except ValueError:
+            pass 
+        if debut is None or fin is None:
+            return Response(
+                {"detail": "Les parametres debut et fin sont obligatoires, au format ISO 8601."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
 
         return Response({"message": resp})
 

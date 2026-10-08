@@ -9,6 +9,6 @@ from rest_framework.routers import DefaultRouter
 from . import views
 # TODO : votre code ici
 router = DefaultRouter()
-router.register('salles', views.SalleViewSet)
-router.register('reservations', views.ReservationViewSet)
+router.register('salles', views.SalleViewSet,basename='salle')
+router.register('reservations', views.ReservationViewSet,basename='reservation')
 urlpatterns = router.urls
