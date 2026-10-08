@@ -13,13 +13,24 @@ from .models import Reservation, Salle
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from .permissions import IsOwnerOrReadOnly
 
-
+from rest_framework.decorators import action
+from rest_framework.response import Response
 
 # TODO : votre code ici
+
+
 
 class SalleViewSet(viewsets.ModelViewSet):
     queryset = Salle.objects.all()
     serializer_class = SalleSerializer
+
+    @action(detail=True, methods=["get"])
+    def get_occupation(self,request):
+        resp= None
+
+
+        return Response({"message": resp})
+
 
 class ReservationViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly]
