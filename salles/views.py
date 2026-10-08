@@ -10,6 +10,10 @@ from salles.serializers import ReservationSerializer, SalleSerializer
 
 from .models import Reservation, Salle
 
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from .permissions import IsOwnerOrReadOnly
+
+
 
 # TODO : votre code ici
 
@@ -18,6 +22,7 @@ class SalleViewSet(viewsets.ModelViewSet):
     serializer_class = SalleSerializer
 
 class ReservationViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly]
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
 
